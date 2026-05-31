@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Atharva Achawal — Growth & Product Marketing</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+<style>
+
+/* =============================================
+   🎨 THEME CUSTOMIZATION — EDIT HERE
+   ============================================= */
+:root {
+  --bg:            #0A0A0A;
+  --surface:       #111111;
+  --surface-hover: #191919;
+  --border:        #222222;
+  --accent:        #FF6B4A;
+  --accent-dim:    rgba(255,107,74,0.08);
+  --text-primary:  #F0EDE6;
+  --text-muted:    #888880;
+  --text-faint:    #3A3A38;
+  --font-display:  'Syne', sans-serif;
+  --font-body:     'DM Sans', sans-serif;
+  --radius:        12px;
+  --radius-sm:     6px;
+  --max-w:         780px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(10,10,10,0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: -0.5px;
+  color: var(--accent);
+}
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--text-primary); }
+
+section {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 100px 2rem;
+}
+section + section { border-top: 1px solid var(--border); }
+
+.label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+h1, h2 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  color: var(--text-primary);
+}
+
+#hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 120px;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent-dim);
+  border: 1px solid rgba(255,107,74,0.2);
+  border-radius: 100px;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--accent);
+  margin-bottom: 2rem;
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+h1 {
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  margin-bottom: 1.5rem;
+}
+.hero-sub {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  color: var(--text-muted);
+  font-weight: 300;
+  max-width: 540px;
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
+}
+.hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: var(--font-body);
+}
+.btn-primary { background: var(--accent); color: #0A0A0A; border: none; }
+.btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+.btn-secondary { background: transparent; color: var(--text-primary); border: 1px solid var(--border); }
+.btn-secondary:hover { border-color: var(--text-muted); background: var(--surface-hover); }
+.hero-credits { margin-top: 4rem; display: flex; gap: 2rem; flex-wrap: wrap; }
+.credit { display: flex; flex-direction: column; gap: 4px; }
+.credit-label { font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.1em; }
+.credit-value { font-size: 13px; color: var(--text-muted); }
+
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+.about-text p { color: var(--text-muted); font-size: 15px; margin-bottom: 1rem; font-weight: 300; }
+.about-text p strong { color: var(--text-primary); font-weight: 500; }
+.about-stats { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.stat { background: var(--surface); padding: 1.25rem 1.5rem; transition: background 0.2s; }
+.stat:hover { background: var(--surface-hover); }
+.stat-number { font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; color: var(--accent); line-height: 1; margin-bottom: 4px; }
+.stat-label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+
+h2 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 0.5rem; }
+.section-sub { color: var(--text-muted); font-size: 15px; margin-bottom: 3rem; font-weight: 300; }
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.skill-group { background: var(--surface); padding: 1.5rem; transition: background 0.2s; }
+.skill-group:hover { background: var(--surface-hover); }
+.skill-group-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 1rem; }
+.skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 3px 10px; font-size: 12px; color: var(--text-muted); transition: all 0.2s; }
+.tag:hover { border-color: var(--accent); color: var(--accent); }
+
+.work-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.work-item { background: var(--surface); padding: 1.75rem 1.5rem; display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: start; transition: background 0.2s; }
+.work-item:hover { background: var(--surface-hover); }
+.work-company { font-family: var(--font-display); font-weight: 700; font-size: 17px; color: var(--text-primary); margin-bottom: 2px; }
+.work-role { font-size: 13px; color: var(--accent); font-weight: 500; margin-bottom: 8px; }
+.work-desc { font-size: 13px; color: var(--text-muted); font-weight: 300; line-height: 1.6; max-width: 500px; }
+.work-meta { text-align: right; }
+.work-date { font-size: 12px; color: var(--text-faint); font-weight: 400; white-space: nowrap; }
+.work-badge { display: inline-block; margin-top: 6px; background: var(--accent-dim); border: 1px solid rgba(255,107,74,0.15); border-radius: 4px; padding: 2px 8px; font-size: 11px; color: var(--accent); }
+
+.maxims { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-top: 2rem; }
+.maxim { background: var(--surface); padding: 1.75rem 1.5rem; transition: background 0.2s; }
+.maxim:hover { background: var(--surface-hover); }
+.maxim-number { font-family: var(--font-display); font-size: 2.5rem; font-weight: 800; color: var(--text-faint); line-height: 1; margin-bottom: 0.75rem; }
+.maxim-text { font-size: 14px; color: var(--text-muted); font-weight: 300; line-height: 1.6; }
+.maxim-text strong { color: var(--text-primary); font-weight: 500; }
+
+.contact-inner { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); padding: 3rem; }
+.contact-heading { font-family: var(--font-display); font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 800; letter-spacing: -1px; margin-bottom: 0.75rem; }
+.contact-sub { color: var(--text-muted); font-size: 15px; font-weight: 300; margin-bottom: 2rem; }
+.contact-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+
+.contact-form { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 2rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-field { display: flex; flex-direction: column; gap: 6px; }
+.form-field label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+.form-field input,
+.form-field textarea {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.2s;
+  resize: none;
+}
+.form-field input:focus,
+.form-field textarea:focus { border-color: var(--accent); }
+.form-field input::placeholder,
+.form-field textarea::placeholder { color: var(--text-faint); }
+.form-submit { align-self: flex-start; }
+.form-success { display: none; padding: 12px 16px; background: var(--accent-dim); border: 1px solid rgba(255,107,74,0.2); border-radius: var(--radius-sm); font-size: 13px; color: var(--accent); }
+
+footer { max-width: var(--max-w); margin: 0 auto; padding: 2rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--text-faint); }
+
+@media (max-width: 640px) {
+  nav { padding: 0 1.25rem; }
+  .nav-links { gap: 1.25rem; }
+  section { padding: 80px 1.25rem; }
+  .about-grid { grid-template-columns: 1fr; }
+  .work-item { grid-template-columns: 1fr; }
+  .work-meta { text-align: left; }
+  .contact-inner { padding: 2rem 1.5rem; }
+  .form-row { grid-template-columns: 1fr; }
+  footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-eyebrow { animation: fadeUp 0.5s ease both; }
+h1            { animation: fadeUp 0.5s 0.1s ease both; }
+.hero-sub     { animation: fadeUp 0.5s 0.2s ease both; }
+.hero-ctas    { animation: fadeUp 0.5s 0.3s ease both; }
+.hero-credits { animation: fadeUp 0.5s 0.4s ease both; }
+
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">AA</span>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#philosophy">Philosophy</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <span class="hero-eyebrow">Open to new opportunities · Relocating anywhere in the US</span>
+  <h1>Atharva Achawal</h1>
+  <p class="hero-sub">Marketing professional specializing in go-to-market strategy, paid media, and data-driven growth — with deep B2B experience across industrial, tech, and enterprise sectors.</p>
+  <div class="hero-ctas">
+    <a href="#work" class="btn btn-primary">View My Work →</a>
+    <a href="#contact" class="btn btn-secondary">Let's Connect</a>
+  </div>
+  <div class="hero-credits">
+    <div class="credit">
+      <span class="credit-label">Based in</span>
+      <span class="credit-value">Nashville, TN</span>
+    </div>
+    <div class="credit">
+      <span class="credit-label">Experience</span>
+      <span class="credit-value">4+ Years</span>
+    </div>
+    <div class="credit">
+      <span class="credit-label">Sector focus</span>
+      <span class="credit-value">B2B · Industrial · SaaS</span>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="label">Origin Story</div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm a <strong>Growth Marketing Manager</strong> with a background spanning paid search, programmatic advertising, and CRM automation. I've worked across major DSPs — DV360, The Trade Desk, Xandr, and Amazon DSP — building and managing campaigns for B2B and enterprise clients.</p>
+      <p>My approach is <strong>data-first and outcome-driven</strong>. I care about the full funnel — from driving <strong>MQLs</strong> through targeted paid media, to improving <strong>MQL-to-SQL conversion</strong> through better lead quality and nurturing, to ultimately improving <strong>hit rate</strong> by aligning marketing closely with sales. If it doesn't move pipeline, it needs to be rethought.</p>
+      <p>Outside of platforms and dashboards, I'm drawn to how <strong>industrial B2B, SaaS, and product brands</strong> tell their story in digital channels — a space where most companies are still leaving significant growth on the table.</p>
+    </div>
+    <div class="about-stats">
+      <div class="stat">
+        <div class="stat-number">4+</div>
+        <div class="stat-label">Years in Marketing Strategy, Digital Marketing & Storytelling</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">AI/ML</div>
+        <div class="stat-label">Passionate About Emerging Technologies</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">B2B</div>
+        <div class="stat-label">Industrial B2B & SaaS — Primary Domain Focus</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number" style="font-size:1rem; padding-top:4px;">Colgate · Coke · TE</div>
+        <div class="stat-label">Brands I've Worked With</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="label">Capabilities</div>
+  <h2>The Stack</h2>
+  <p class="section-sub">Tools, platforms, and domains I work in daily.</p>
+  <div class="skills-grid">
+    <div class="skill-group">
+      <div class="skill-group-title">Paid Media</div>
+      <div class="skill-tags">
+        <span class="tag">Google Ads</span>
+        <span class="tag">Meta Ads</span>
+        <span class="tag">LinkedIn Ads</span>
+        <span class="tag">Search</span>
+        <span class="tag">Display</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Programmatic</div>
+      <div class="skill-tags">
+        <span class="tag">DV360</span>
+        <span class="tag">The Trade Desk</span>
+        <span class="tag">Xandr</span>
+        <span class="tag">Amazon DSP</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">CRM & Automation</div>
+      <div class="skill-tags">
+        <span class="tag">SuperOffice</span>
+        <span class="tag">Salesforce</span>
+        <span class="tag">HubSpot</span>
+        <span class="tag">Zapier</span>
+        <span class="tag">Klaviyo</span>
+        <span class="tag">n8n</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Analytics & Tracking</div>
+      <div class="skill-tags">
+        <span class="tag">GA4</span>
+        <span class="tag">SEMrush</span>
+        <span class="tag">Datorama</span>
+        <span class="tag">Adobe Analytics</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Domain Knowledge</div>
+      <div class="skill-tags">
+        <span class="tag">B2B Marketing</span>
+        <span class="tag">Industrial Safety</span>
+        <span class="tag">Electronics</span>
+        <span class="tag">Lead Gen</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Strategy</div>
+      <div class="skill-tags">
+        <span class="tag">Go-to-Market</span>
+        <span class="tag">Sales Enablement</span>
+        <span class="tag">Campaign Architecture</span>
+        <span class="tag">A/B Testing</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="label">Experience</div>
+  <h2>Featured Work</h2>
+  <p class="section-sub">Where I've built, launched, and optimized.</p>
+  <div class="work-list">
+
+    <div class="work-item">
+      <div>
+        <div class="work-company">Troax Inc.</div>
+        <div class="work-role">Marketing Coordinator — Product</div>
+        <div class="work-desc">Led go-to-market planning and product positioning for major tradeshows including Build New York, Modex, and Automate — developing sales enablement materials that drove measurable awareness lift. Owned VOC feedback loops via NPS and CSAT, translating customer insights into product recommendations that influenced feature prioritization. Tracked Google Ads campaign KPIs tied to product launches, achieving a 30% increase in user engagement.</div>
+      </div>
+      <div class="work-meta">
+        <div class="work-date">Dec 2023 — Present</div>
+        <span class="work-badge">Full-time</span>
+      </div>
+    </div>
+
+    <div class="work-item">
+      <div>
+        <div class="work-company">Dymax Corporation</div>
+        <div class="work-role">Digital Marketing Intern</div>
+        <div class="work-desc">Executed SEO strategy using SEMrush — optimizing on-page content, SERP features, and resolving technical issues to improve organic discoverability. Led the full migration of Google Analytics reporting from UA to GA4, ensuring clean data continuity across campaigns and reporting workflows.</div>
+      </div>
+      <div class="work-meta">
+        <div class="work-date">Aug — Dec 2023</div>
+        <span class="work-badge">Internship</span>
+      </div>
+    </div>
+
+    <div class="work-item">
+      <div>
+        <div class="work-company">TE Connectivity</div>
+        <div class="work-role">Marketing Intern — Performance Materials</div>
+        <div class="work-desc">Supported NPI launches for HST and EMI Shielding portfolios, building value proposition packages that mapped customer pain points to product capabilities. Built a digital strategy roadmap aligning go-to-market activities with product lifecycle stages. SEO audit of the PFM portfolio drove a 10% increase in organic traffic.</div>
+      </div>
+      <div class="work-meta">
+        <div class="work-date">May — Aug 2023</div>
+        <span class="work-badge">Internship</span>
+      </div>
+    </div>
+
+    <div class="work-item">
+      <div>
+        <div class="work-company">GroupM</div>
+        <div class="work-role">Programmatic Account Executive</div>
+        <div class="work-desc">Managed programmatic campaigns across DV360 — launching Display, Video, YouTube, and BLS ad formats while optimizing toward CPA, CPC, CPL, and CPM goals. Generated bi-weekly performance reports and Salesforce campaign tickets to ensure seamless workflow execution.</div>
+      </div>
+      <div class="work-meta">
+        <div class="work-date">Aug 2021 — Jul 2022</div>
+        <span class="work-badge">Full-time</span>
+      </div>
+    </div>
+
+    <div class="work-item">
+      <div>
+        <div class="work-company">Auburn Digital Solutions</div>
+        <div class="work-role">Digital Operations Analyst</div>
+        <div class="work-desc">Managed end-to-end client relationships from contract signing through onboarding, driving product adoption and renewals across a portfolio of B2B accounts.</div>
+      </div>
+      <div class="work-meta">
+        <div class="work-date">Feb 2020 — Aug 2021</div>
+        <span class="work-badge">Full-time</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section id="philosophy">
+  <div class="label">Guiding Principles</div>
+  <h2>How I Work</h2>
+  <div class="maxims">
+    <div class="maxim">
+      <div class="maxim-number">01</div>
+      <div class="maxim-text"><strong>Data before opinion.</strong> Every campaign decision should be traceable back to a number, not a feeling.</div>
+    </div>
+    <div class="maxim">
+      <div class="maxim-number">02</div>
+      <div class="maxim-text"><strong>Structure before scale.</strong> Get the campaign architecture right first. Scaling a broken setup just amplifies waste.</div>
+    </div>
+    <div class="maxim">
+      <div class="maxim-number">03</div>
+      <div class="maxim-text"><strong>Automate the repetitive.</strong> If something can be done by a workflow, it should be — so humans can focus on strategy.</div>
+    </div>
+    <div class="maxim">
+      <div class="maxim-number">04</div>
+      <div class="maxim-text"><strong>Industry context matters.</strong> Great B2B marketing requires understanding how customers actually buy — not just how platforms work.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="label">Get In Touch</div>
+    <div class="contact-heading">Let's build<br/>something real.</div>
+    <p class="contact-sub">Looking for my next challenge in Growth or Product Marketing — where I can connect customer insights, product narratives, and data-driven campaigns into something that actually moves the business.</p>
+    <div class="contact-links">
+      <a href="mailto:achawalatharva@gmail.com" class="btn btn-primary">achawalatharva@gmail.com →</a>
+      <a href="https://linkedin.com/in/atharva-achawal" target="_blank" class="btn btn-secondary">LinkedIn ↗</a>
+    </div>
+
+    <form class="contact-form" action="https://formspree.io/f/mzdwqngk" method="POST" id="contactForm">
+      <div class="form-row">
+        <div class="form-field">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your name" required />
+        </div>
+        <div class="form-field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required />
+        </div>
+      </div>
+      <div class="form-field">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" placeholder="Tell me about the opportunity or just say hi..." required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary form-submit">Send Message →</button>
+      <div class="form-success" id="formSuccess">Message received — I'll get back to you soon.</div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <span>© 2025 Atharva Achawal</span>
+  <span>Built with HTML · Hosted on GitHub Pages</span>
+</footer>
+
+<script>
+const form = document.getElementById('contactForm');
+const success = document.getElementById('formSuccess');
+form.addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const data = new FormData(form);
+  const res = await fetch(form.action, {
+    method: 'POST',
+    body: data,
+    headers: { 'Accept': 'application/json' }
+  });
+  if (res.ok) {
+    form.reset();
+    success.style.display = 'block';
+    setTimeout(() => success.style.display = 'none', 5000);
+  }
+});
+</script>
+
+</body>
+</html>
